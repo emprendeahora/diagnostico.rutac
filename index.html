@@ -122,7 +122,7 @@
     padding: 16px 5vw;
     display: flex; align-items: center; gap: 20px;
     position: sticky;
-    top: 76px; /* Below header */
+    top: 76px;
     z-index: 99;
     box-shadow: var(--shadow-sm);
   }
@@ -185,10 +185,11 @@
   .form-select { appearance: none; background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23001E4C%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E"); background-repeat: no-repeat; background-position: right 16px top 50%; background-size: 12px auto; }
   
   .radio-group { display: flex; gap: 24px; margin-top: 10px; }
-  .radio-label { display: flex; align-items: center; gap: 8px; font-size: 15px; cursor: pointer; font-weight: 500; }
+  .radio-label { display: flex; align-items: center; gap: 8px; font-size: 15px; cursor: pointer; font-weight: 500; transition: color 0.2s; }
+  .radio-label:hover { color: var(--c-accent); }
   .radio-label input[type="radio"] { width: 18px; height: 18px; accent-color: var(--c-accent); cursor: pointer; }
 
-  /* ── CARDS SELECTOR (Pasos 2 y 3) ── */
+  /* ── CARDS SELECTOR (Pasos 2, 3 y 5) ── */
   .cards-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -267,7 +268,7 @@
   /* ── NAV BUTTONS ── */
   .nav-row {
     display: flex; gap: 16px; align-items: center; justify-content: space-between;
-    margin-top: 48px; border-top: 1px solid var(--c-border); padding-top: 32px;
+    margin-top: 48px; border-top: 1px solid var(--c-border); padding-top: 32px; flex-wrap: wrap;
   }
   .nav-row-center { justify-content: center; }
   .btn {
@@ -291,7 +292,7 @@
   #loading-section h3 { font-family: 'Poppins', sans-serif; font-size: 24px; margin-bottom: 8px; }
   #loading-section p { color: var(--c-muted); }
 
-  /* ── RESULTADO (Paso 5) ── */
+  /* ── RESULTADO (Paso 6) ── */
   .result-wrap { animation: slideUp 0.6s ease; }
   .result-header {
     background: var(--c-paper); color: var(--c-ink); border-radius: 24px; border: 1px solid var(--c-border);
@@ -330,6 +331,7 @@
   .result-card { background: var(--c-paper); border: 1px solid var(--c-border); border-radius: 20px; padding: 32px; box-shadow: var(--shadow-sm); transition: var(--transition); }
   .result-card:hover { box-shadow: 0 12px 30px rgba(0,0,0,0.05); transform: translateY(-4px); }
   .result-card.full { grid-column: 1 / -1; }
+  .result-card.summary { background: #F8FAFC; border-color: #C1D0DF; }
   
   .rc-label {
     font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-muted);
@@ -340,6 +342,7 @@
   .result-card.herramienta .rc-label::before { background: var(--c-accent2); }
   .result-card.insight .rc-label::before { background: var(--c-accent3); }
   .result-card.temas .rc-label::before { background: #7B5EA7; }
+  .result-card.summary .rc-label::before { background: var(--c-ink); }
 
   .result-card h3 { font-family: 'Poppins', sans-serif; font-size: 20px; font-weight: 700; line-height: 1.3; color: var(--c-ink); margin-bottom: 12px; }
   .result-card p { font-size: 15px; color: var(--c-muted); line-height: 1.7; }
@@ -356,6 +359,22 @@
     font-size: 14px; color: #0056B3; margin-bottom: 32px; display: flex; gap: 12px; align-items: flex-start;
   }
   .info-note .info-icon { flex-shrink: 0; color: var(--c-accent); }
+
+  /* ── ESTILOS PARA IMPRESIÓN (PDF) ── */
+  @media print {
+    .site-header, .progress-bar-wrap, .hero, .nav-row, .no-print { display: none !important; }
+    body { background: white; color: black; }
+    .main { padding: 0; max-width: 100%; margin: 0; }
+    .result-header { box-shadow: none; border: 1px solid #ccc; background: white; padding: 24px; border-radius: 8px; page-break-inside: avoid; }
+    .result-header h2, .result-header .score-val, .result-header .score-line { color: black; }
+    .result-header-bg-text { display: none; }
+    .result-badge { border: 1px solid #ccc; color: black; background: #eee; }
+    .score-bar-bg { background: #eee; }
+    .score-bar-fill { background: #555; }
+    .result-cards { display: block; }
+    .result-card { page-break-inside: avoid; border: 1px solid #ccc; box-shadow: none; margin-bottom: 16px; padding: 20px; border-radius: 8px;}
+    .tema-row { border-color: #ccc; page-break-inside: avoid; }
+  }
 </style>
 </head>
 <body>
@@ -378,13 +397,14 @@
   </div>
 </div>
 
-<div class="progress-bar-wrap" role="progressbar" aria-valuemin="1" aria-valuemax="5" aria-valuenow="1" id="progress-container">
+<div class="progress-bar-wrap" role="progressbar" aria-valuemin="1" aria-valuemax="6" aria-valuenow="1" id="progress-container">
   <div class="progress-steps">
     <div class="progress-step active" id="ps1"></div>
     <div class="progress-step" id="ps2"></div>
     <div class="progress-step" id="ps3"></div>
     <div class="progress-step" id="ps4"></div>
     <div class="progress-step" id="ps5"></div>
+    <div class="progress-step" id="ps6" style="display: none;"></div>
   </div>
   <div class="progress-label" id="progress-label">Paso 1 de 5: Datos Generales</div>
 </div>
@@ -427,10 +447,15 @@
         <label class="form-label" for="sel-mentor">Nombre del mentor(a) asignado</label>
         <select class="form-input form-select" id="sel-mentor" onchange="validateStep1()">
           <option value="">Selecciona tu mentor(a)...</option>
-          <option value="Mentor 1">Mentor(a) 1</option>
-          <option value="Mentor 2">Mentor(a) 2</option>
-          <option value="Mentor 3">Mentor(a) 3</option>
-          <!-- Agregar más mentores si es necesario -->
+          <option value="Oscar Solano">Oscar Solano</option>
+          <option value="José Andrés Arevalo">José Andrés Arevalo</option>
+          <option value="Jorge Murillo">Jorge Murillo</option>
+          <option value="Alexandra Martinez">Alexandra Martinez</option>
+          <option value="Jeannie Salinas">Jeannie Salinas</option>
+          <option value="Iván Bastida">Iván Bastida</option>
+          <option value="Maria José Sierra">Maria José Sierra</option>
+          <option value="Carolina Zabala">Carolina Zabala</option>
+          <option value="Maira Mendivil">Maira Mendivil</option>
         </select>
       </div>
     </div>
@@ -481,22 +506,53 @@
     
     <div class="nav-row">
       <button class="btn btn-secondary" onclick="goStep(3)">Volver</button>
-      <button class="btn btn-primary" id="btn-step4" disabled onclick="iniciarCalculo()">Generar Diagnóstico</button>
+      <button class="btn btn-primary" id="btn-step4" disabled onclick="iniciarCalculo()">Siguiente Paso</button>
+    </div>
+  </div>
+
+  <!-- PASO 5: ENFOQUE GERENCIA (Solo si elige Gerencia) -->
+  <div class="section" id="step5">
+    <div class="section-label">Paso 5</div>
+    <div class="section-title">Profundización en Gerencia</div>
+    <div class="section-desc">Has seleccionado Gerencia. Por favor indica en cuál de estas dos áreas específicas necesitas mayor atención.</div>
+    <div class="cards-grid" id="enfoque-grid" role="radiogroup">
+      <button class="card-option" role="radio" aria-checked="false" data-id="estrategia" onclick="selectSubLinea('estrategia', this)">
+        <span class="card-icon" aria-hidden="true">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
+        </span>
+        <div class="card-name">Gerencia Estratégica</div>
+        <div class="card-desc">Enfoque en modelo de negocio, crecimiento, innovación y estrategia de valor.</div>
+        <div class="card-check">✓</div>
+      </button>
+      <button class="card-option" role="radio" aria-checked="false" data-id="finanzas" onclick="selectSubLinea('finanzas', this)">
+        <span class="card-icon" aria-hidden="true">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+        </span>
+        <div class="card-name">Gerencia Financiera</div>
+        <div class="card-desc">Enfoque en costos, presupuestos, flujo de caja y rentabilidad.</div>
+        <div class="card-check">✓</div>
+      </button>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-secondary" onclick="goStep(4)">Volver</button>
+      <button class="btn btn-primary" id="btn-step5" disabled onclick="procesarResultados()">Generar Diagnóstico</button>
     </div>
   </div>
 
   <!-- ESTADO DE CARGA INTERMEDIO -->
   <div class="section" id="loading-section">
     <div class="spinner"></div>
-    <h3>Analizando tus respuestas...</h3>
-    <p>Identificando tu reto principal y buscando herramientas ideales.</p>
+    <h3 id="loading-title">Analizando tus respuestas...</h3>
+    <p id="loading-desc">Identificando tu reto principal y buscando herramientas ideales.</p>
   </div>
 
-  <!-- PASO 5: RESULTADO -->
-  <div class="section" id="step5">
+  <!-- PASO 6: RESULTADO -->
+  <div class="section" id="step6">
     <div id="result-container"></div>
-    <div class="nav-row nav-row-center" style="margin-top: 40px;">
-      <button class="btn btn-secondary" onclick="reiniciar()">Hacer otro diagnóstico</button>
+    <div class="nav-row nav-row-center no-print" style="margin-top: 40px; gap: 16px;">
+      <button class="btn btn-secondary" onclick="window.print()">Descargar PDF / Imprimir 🖨️</button>
+      <button class="btn btn-primary" id="btn-enviar-correo" onclick="enviarCorreo()">Enviar Resultados al Correo ✉️</button>
+      <button class="btn btn-secondary" onclick="reiniciar()">Hacer otro diagnóstico ↺</button>
     </div>
   </div>
 
@@ -568,7 +624,7 @@ const PREGUNTAS = {
       opciones: [
         { texto: 'No realizamos análisis del entorno ni de la competencia.', pct: 0 },
         { texto: 'Sí, pero de forma informal, basados en la intuición o percepción.', pct: 33 },
-        { texto: 'Sí, realizamos análisis de mercado periódico para guiar la strategy.', pct: 66 },
+        { texto: 'Sí, realizamos análisis de mercado periódico para guiar la estrategia.', pct: 66 },
         { texto: 'Sí, realizamos análisis sistemáticos y nos basamos en datos.', pct: 100 },
       ]
     },
@@ -678,10 +734,40 @@ const RETOS = {
   IN1: { reto: 'Estancamiento en la oferta de valor', herr: 'Ciclo de Experimentación Ágil', insight: 'El mercado cambia rápido. Dedicar un pequeño porcentaje de tiempo a probar nuevas ideas te protegerá de volverte irrelevante.' }
 };
 
+// Retos Específicos para Gerencia -> Profundidad en Estrategia
+const RETOS_GERENCIA_ESTRATEGIA = {
+  descubrimiento: {
+    reto: 'Conceptualización clara del valor',
+    herr: 'Lienzo de Estrés del Valor',
+    insight: 'El emprendedor carece de una conceptualización clara de su valor. Sabe qué hace, pero no sabe qué valor real aporta, lo que le impide explicar y vender su oferta de forma persuasiva.'
+  },
+  nacimiento: {
+    reto: 'Definición de la estrategia de Fuente de Ingreso',
+    herr: 'Lienzo del Enfrentamiento de las fuentes de ingreso con la lógica de Negocio',
+    insight: 'Esto implica establecer el modelo de ingresos correcto que refleje el valor real, sea sostenible, rentable y esté alineado con el mercado y la estructura de costos.'
+  },
+  despegue: {
+    reto: 'Validación comercial en el mercado real',
+    herr: 'Lienzo de construcción de experimentos comerciales de Lean StartUp',
+    insight: 'Debes poner a prueba tu propuesta de valor y modelo de ingresos en el mercado real. Implica ejecutar validación comercial para verificar la aceptación y viabilidad.'
+  },
+  crecimiento: {
+    reto: 'Validación rigurosa de Product Market Fit',
+    herr: 'Cuadro de parámetros de Product Market Fit',
+    insight: 'Consiste en validar rigurosamente que el producto satisface una necesidad profunda y recurrente en un mercado grande. Implica: validación en demanda masiva, modelo replicable y sostenibilidad.'
+  },
+  madurez: {
+    reto: 'Identificación de oportunidades significativas',
+    herr: 'Diagrama de Venn para encontrar Sweet Spot basado en Trend Fundamental',
+    insight: 'Implica que la empresa, ya establecida y con un Product Market Fit confirmado, debe buscar nuevas vías para crecer, expandirse o diversificar de manera estratégica y rentable.'
+  }
+};
+
+
 // ==========================================
 // 2. ESTADO DE LA APLICACIÓN (STATE)
 // ==========================================
-let state = { datos: {}, etapa: null, linea: null, respuestas: {} };
+let state = { datos: {}, etapa: null, linea: null, subLinea: null, respuestas: {}, payloadFinal: null };
 
 // ==========================================
 // 3. FUNCIONES DE INTERFAZ (UI RENDER)
@@ -785,6 +871,19 @@ function selectCard(type, id, el) {
   }
 }
 
+function selectSubLinea(id, el) {
+  const container = el.closest('.cards-grid');
+  container.querySelectorAll('.card-option').forEach(c => {
+    c.classList.remove('selected');
+    c.setAttribute('aria-checked', 'false');
+  });
+  
+  el.classList.add('selected');
+  el.setAttribute('aria-checked', 'true');
+  state.subLinea = id;
+  document.getElementById('btn-step5').disabled = false;
+}
+
 function selectOption(qid, oi, pct, el, questionIndex, totalQuestions) {
   const list = el.closest('.options-list');
   list.querySelectorAll('.option-item').forEach(o => {
@@ -816,11 +915,32 @@ function checkStep4Ready() {
   
   if (respondidas >= preguntas.length && preguntas.length > 0) {
     btn.disabled = false;
-    btn.innerHTML = 'Generar Diagnóstico';
+    btn.innerHTML = state.linea === 'gerencia' ? 'Siguiente Paso' : 'Generar Diagnóstico';
   } else {
     btn.disabled = true;
     btn.innerHTML = 'Responde todas para continuar';
   }
+}
+
+function iniciarCalculo() {
+  if (state.linea === 'gerencia') {
+    goStep(5);
+  } else {
+    procesarResultados();
+  }
+}
+
+function procesarResultados() {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('visible'));
+  document.getElementById('loading-section').classList.add('visible');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  
+  document.getElementById('loading-title').textContent = `Analizando diagnóstico...`;
+  document.getElementById('loading-desc').textContent = `Generando tu reporte personalizado.`;
+
+  setTimeout(() => {
+    generarDiagnosticoFinal();
+  }, 1800);
 }
 
 function goStep(n) {
@@ -829,25 +949,33 @@ function goStep(n) {
   const targetSection = document.getElementById('step' + n);
   if(targetSection) targetSection.classList.add('visible');
 
+  const isGerencia = state.linea === 'gerencia';
+  const totalSteps = isGerencia ? 6 : 5;
+  const currentVisualStep = (n === 6 && !isGerencia) ? 5 : n;
+
+  document.getElementById('ps6').style.display = isGerencia ? 'block' : 'none';
+
   const progressContainer = document.getElementById('progress-container');
-  progressContainer.setAttribute('aria-valuenow', n);
+  progressContainer.setAttribute('aria-valuemax', totalSteps);
+  progressContainer.setAttribute('aria-valuenow', currentVisualStep);
   
-  ['ps1','ps2','ps3','ps4','ps5'].forEach((id, i) => {
+  ['ps1','ps2','ps3','ps4','ps5','ps6'].forEach((id, i) => {
     const el = document.getElementById(id);
     if (!el) return;
     el.classList.remove('active','done');
-    if (i + 1 < n) el.classList.add('done');
-    else if (i + 1 === n) el.classList.add('active');
+    if (i + 1 < currentVisualStep) el.classList.add('done');
+    else if (i + 1 === currentVisualStep) el.classList.add('active');
   });
   
-  const stepLabels = [
-    'Paso 1 de 5: Datos Generales',
-    'Paso 2 de 5: Etapa Empresarial',
-    'Paso 3 de 5: Área a Diagnosticar',
-    'Paso 4 de 5: Profundización',
-    'Paso 5 de 5: Resultados del Diagnóstico'
-  ];
-  document.getElementById('progress-label').textContent = stepLabels[n - 1];
+  let label = '';
+  if (n === 1) label = `Paso 1 de ${totalSteps}: Datos Generales`;
+  else if (n === 2) label = `Paso 2 de ${totalSteps}: Etapa Empresarial`;
+  else if (n === 3) label = `Paso 3 de ${totalSteps}: Área a Diagnosticar`;
+  else if (n === 4) label = `Paso 4 de ${totalSteps}: Profundización`;
+  else if (n === 5 && isGerencia) label = `Paso 5 de ${totalSteps}: Enfoque Gerencial`;
+  else label = `Paso ${totalSteps} de ${totalSteps}: Resultados del Diagnóstico`;
+
+  document.getElementById('progress-label').textContent = label;
 
   if (n === 4) { 
     state.respuestas = {}; 
@@ -858,19 +986,8 @@ function goStep(n) {
 }
 
 // ==========================================
-// 5. CÁLCULO DE RESULTADOS
+// 5. CÁLCULO DE RESULTADOS Y RESUMEN
 // ==========================================
-
-function iniciarCalculo() {
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('visible'));
-  document.getElementById('loading-section').classList.add('visible');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-  document.getElementById('progress-label').textContent = `Analizando...`;
-
-  setTimeout(() => {
-    generarDiagnosticoFinal();
-  }, 1800);
-}
 
 function generarDiagnosticoFinal() {
   const preguntas = PREGUNTAS[state.linea] || [];
@@ -888,28 +1005,68 @@ function generarDiagnosticoFinal() {
     }
   });
 
-  const score = Math.round(totalPct / preguntas.length);
+  const score = Math.round(totalPct / preguntas.length) || 0; // Prevención de NaN
 
   let nivelObj = { nivel: 'Nivel no definido', desc: '' };
   if (score <= 33)  nivelObj = { nivel: 'Inicial', desc: 'Hay mucho potencial de estructuración. Enfoquémonos en las bases.' };
   else if (score <= 66)  nivelObj = { nivel: 'En desarrollo', desc: 'Tienes buenas bases, pero necesitas estandarizar y medir mejor los procesos.' };
   else nivelObj = { nivel: 'Avanzado', desc: 'Esta área está bien gestionada. Tu reto es la optimización continua y escala.' };
 
-  const retoData = RETOS[minId] || { reto: 'Oportunidad general de mejora', herr: 'Revisión estratégica', insight: 'Analiza detalladamente las áreas con puntaje medio.' };
-  const planItems = (PLAN[state.etapa]?.[state.linea]) || [];
   const etapaObj = ETAPAS.find(e => e.id === state.etapa);
   const lineaObj = LINEAS.find(l => l.id === state.linea);
+  const planItems = (PLAN[state.etapa]?.[state.linea]) || [];
 
-  // Nombres dinámicos
-  const nombreEmpresa = state.datos.empresa ? `<strong>${state.datos.empresa}</strong>` : 'Tu Empresa';
-  const nombreMentor = state.datos.mentor ? `<br>Mentor(a) asignado: <strong>${state.datos.mentor}</strong>` : '';
+  // Lógica de Reto Principal
+  let retoFinal = '';
+  let insightFinal = '';
+  let herrFinal = '';
+
+  const defaultRetoData = RETOS[minId] || { reto: 'Oportunidad general de mejora', herr: 'Revisión estratégica', insight: 'Analiza detalladamente las áreas con puntaje medio.' };
+
+  // --- LÓGICA DE GERENCIA ESTRATÉGICA ---
+  if (state.linea === 'gerencia' && state.subLinea === 'estrategia') {
+    const customReto = RETOS_GERENCIA_ESTRATEGIA[state.etapa];
+    if (customReto) {
+      retoFinal = customReto.reto;
+      insightFinal = customReto.insight;
+      herrFinal = customReto.herr;
+    }
+  } else {
+    retoFinal = defaultRetoData.reto;
+    insightFinal = defaultRetoData.insight;
+    herrFinal = defaultRetoData.herr;
+  }
+
+  // Textos y nombres dinámicos
+  const nombreMentor = state.datos.mentor || "tu mentor";
+  const tituloLinea = (state.linea === 'gerencia' && state.subLinea) 
+    ? (state.subLinea === 'estrategia' ? 'Gerencia Estratégica' : 'Gerencia Financiera')
+    : lineaObj.name;
+
+  // Generar resumen del estado de la unidad productiva
+  const resumenTexto = `La unidad productiva <strong>${state.datos.empresa}</strong>, representada por <strong>${state.datos.nombre}</strong> y clasificada en la etapa de <strong>${etapaObj.name}</strong>, ha completado exitosamente su diagnóstico de madurez en el área de <strong>${tituloLinea}</strong>. El análisis refleja un índice de madurez del <strong>${score}%</strong>, ubicando a la empresa en un nivel <strong>${nivelObj.nivel}</strong>. Se ha identificado que su principal reto estratégico actual es la <strong>${retoFinal.toLowerCase()}</strong>. Para superar este desafío, se recomienda implementar prioritariamente la herramienta <strong>${herrFinal}</strong>. Las siguientes sesiones de mentoría con <strong>${nombreMentor}</strong> estarán enfocadas en ejecutar estos ajustes y propulsar el crecimiento sostenible del negocio.`;
+
+  // Guardar payload para el correo (Mantenemos HTML en el resumen para negritas)
+  state.payloadFinal = {
+    nombre: state.datos.nombre,
+    correo: state.datos.correo,
+    empresa: state.datos.empresa,
+    mentor: state.datos.mentor,
+    etapa: etapaObj.name,
+    area: tituloLinea,
+    puntaje: score,
+    nivel: nivelObj.nivel,
+    reto: retoFinal,
+    herramienta: herrFinal,
+    resumen: resumenTexto 
+  };
 
   const container = document.getElementById('result-container');
   container.innerHTML = `
     <div class="result-wrap">
       <div class="section-label">Diagnóstico Completado</div>
-      <div class="section-title">Resultados de ${lineaObj.name}</div>
-      <div class="section-desc">Empresa: ${nombreEmpresa} | Etapa: ${etapaObj.name} ${nombreMentor}</div>
+      <div class="section-title">Resultados de ${tituloLinea}</div>
+      <div class="section-desc">Empresa: <strong>${state.datos.empresa}</strong> | Etapa: ${etapaObj.name}</div>
 
       <div class="result-header">
         <div class="result-header-bg-text">${score}%</div>
@@ -924,28 +1081,34 @@ function generarDiagnosticoFinal() {
       </div>
 
       <div class="result-cards">
+        
+        <div class="result-card summary full">
+          <div class="rc-label">📋 Resumen Ejecutivo del Estado Actual</div>
+          <p style="font-size: 15.5px; line-height: 1.8; color: var(--c-ink);">${resumenTexto}</p>
+        </div>
+
         <div class="result-card reto full">
           <div class="rc-label">Tu Reto Prioritario</div>
-          <h3>${retoData.reto}</h3>
-          <p>${retoData.insight}</p>
+          <h3>${retoFinal}</h3>
+          <p>${insightFinal}</p>
         </div>
         
         <div class="result-card herramienta">
           <div class="rc-label">Herramienta Sugerida</div>
-          <h3>${retoData.herr}</h3>
+          <h3>${herrFinal}</h3>
           <p>Implementar esta herramienta te ayudará a resolver tu reto prioritario de forma estructurada.</p>
         </div>
         
         <div class="result-card insight">
-          <div class="rc-label">Foco de Acción</div>
+          <div class="rc-label">Foco de Acción Inmediato</div>
           <h3>Pregunta con menor puntaje</h3>
-          <p>Obtuviste <strong>${minScore}%</strong> en el ítem "${preguntas.find(p=>p.id===minId).texto}". Empieza atacando este punto antes de invertir recursos en otras áreas.</p>
+          <p>Obtuviste <strong>${minScore}%</strong> en el ítem "${preguntas.find(p=>p.id===minId)?.texto || 'General'}". Prioriza trabajar sobre este punto antes de avanzar al siguiente nivel.</p>
         </div>
         
         ${planItems.length > 0 ? `
         <div class="result-card temas full">
           <div class="rc-label">Ruta Recomendada (Fase: ${etapaObj.name})</div>
-          <p style="margin-bottom: 8px;">De acuerdo a la etapa de tu empresa, te sugerimos explorar también estos temas:</p>
+          <p style="margin-bottom: 8px;">De acuerdo a la etapa de tu empresa, te sugerimos explorar también estos temas con tu mentor(a):</p>
           <div class="temas-grid">
             ${planItems.map(t => `
               <div class="tema-row">
@@ -963,16 +1126,55 @@ function generarDiagnosticoFinal() {
   `;
 
   document.getElementById('loading-section').classList.remove('visible');
-  goStep(5);
+  goStep(6);
   
-  setTimeout(() => {
-    const bar = document.getElementById('scoreBar');
-    if (bar) bar.style.width = score + '%';
-  }, 100);
+  // Pequeño retardo (requestAnimationFrame + timeout) para asegurar que el DOM se haya renderizado antes de animar
+  requestAnimationFrame(() => {
+    setTimeout(() => {
+      const bar = document.getElementById('scoreBar');
+      if (bar) bar.style.width = score + '%';
+    }, 50);
+  });
+}
+
+// ==========================================
+// 6. ENVIAR CORREO VIA GOOGLE APPS SCRIPT
+// ==========================================
+function enviarCorreo() {
+  const btn = document.getElementById('btn-enviar-correo');
+  btn.disabled = true;
+  const originalText = btn.innerHTML;
+  btn.innerHTML = 'Enviando... ⏳';
+
+  // URL conectada y activa de Google Apps Script
+  const GAS_URL = "https://script.google.com/macros/s/AKfycbyBmFehPdgdrhdYwPCoN5bkX3EgNyQIlB_mGEBHDQBaU_6kS4Cb1GUkwxj_PzK3njDuOA/exec"; 
+
+  fetch(GAS_URL, {
+    method: 'POST',
+    mode: 'no-cors', 
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(state.payloadFinal)
+  })
+  .then(() => {
+    btn.innerHTML = '¡Enviado Exitosamente! ✔️';
+    btn.style.background = '#2A6B4F'; 
+  })
+  .catch(error => {
+    console.error('Error al enviar:', error);
+    btn.innerHTML = 'Error al enviar ❌';
+    btn.style.background = '#C8440A';
+    setTimeout(() => {
+      btn.disabled = false;
+      btn.innerHTML = originalText;
+      btn.style.background = 'var(--c-accent)';
+    }, 3000);
+  });
 }
 
 function reiniciar() {
-  state = { datos: {}, etapa: null, linea: null, respuestas: {} };
+  state = { datos: {}, etapa: null, linea: null, subLinea: null, respuestas: {}, payloadFinal: null };
   
   // Limpiar campos del formulario
   document.getElementById('inp-nombre').value = '';
@@ -981,6 +1183,19 @@ function reiniciar() {
   document.getElementById('sel-mentor').value = '';
   document.querySelectorAll('input[name="tipo_persona"]').forEach(el => el.checked = false);
   
+  document.querySelectorAll('#enfoque-grid .card-option').forEach(c => {
+    c.classList.remove('selected');
+    c.setAttribute('aria-checked', 'false');
+  });
+  
+  const btnEnvio = document.getElementById('btn-enviar-correo');
+  if(btnEnvio) {
+    btnEnvio.disabled = false;
+    btnEnvio.innerHTML = 'Enviar Resultados al Correo ✉️';
+    btnEnvio.style.background = 'var(--c-accent)';
+  }
+
+  document.getElementById('btn-step5').disabled = true;
   document.getElementById('btn-step1').disabled = true;
 
   initApp();
