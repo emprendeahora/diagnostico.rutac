@@ -411,7 +411,6 @@
 
 <main class="main">
 
-  <!-- PASO 1: DATOS GENERALES -->
   <div class="section visible" id="step1">
     <div class="section-label">Paso 1</div>
     <div class="section-title">Datos Generales</div>
@@ -466,7 +465,6 @@
     </div>
   </div>
 
-  <!-- PASO 2: ETAPA -->
   <div class="section" id="step2">
     <div class="section-label">Paso 2</div>
     <div class="section-title">¿En qué etapa se encuentra tu empresa?</div>
@@ -478,7 +476,6 @@
     </div>
   </div>
 
-  <!-- PASO 3: LÍNEA -->
   <div class="section" id="step3">
     <div class="section-label">Paso 3</div>
     <div class="section-title">¿Qué área quieres diagnosticar?</div>
@@ -490,7 +487,6 @@
     </div>
   </div>
 
-  <!-- PASO 4: PREGUNTAS -->
   <div class="section" id="step4">
     <div class="section-label">Paso 4</div>
     <div class="section-title">Preguntas de profundización</div>
@@ -500,7 +496,7 @@
       <span class="info-icon">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
       </span>
-      <span><strong>Tip de sinceridad:</strong> Elige la option que describe tu situación real de hoy, no la meta que deseas alcanzar mañana. Esto garantiza que la herramienta recomendada sea útil.</span>
+      <span><strong>Tip de sinceridad:</strong> Elige la opción que describe tu situación real de hoy, no la meta que deseas alcanzar mañana. Esto garantiza que la herramienta recomendada sea útil.</span>
     </div>
     
     <div id="questions-container"></div>
@@ -511,43 +507,24 @@
     </div>
   </div>
 
-  <!-- PASO 5: ENFOQUE GERENCIA (Solo si elige Gerencia) -->
   <div class="section" id="step5">
     <div class="section-label">Paso 5</div>
-    <div class="section-title">Profundización en Gerencia</div>
-    <div class="section-desc">Has seleccionado Gerencia. Por favor indica en cuál de estas dos áreas específicas necesitas mayor atención.</div>
+    <div class="section-title" id="step5-title">Profundización</div>
+    <div class="section-desc" id="step5-desc">Por favor indica en cuál de estas áreas específicas necesitas mayor atención.</div>
     <div class="cards-grid" id="enfoque-grid" role="radiogroup">
-      <button class="card-option" role="radio" aria-checked="false" data-id="estrategia" onclick="selectSubLinea('estrategia', this)">
-        <span class="card-icon" aria-hidden="true">
-          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
-        </span>
-        <div class="card-name">Gerencia Estratégica</div>
-        <div class="card-desc">Enfoque en modelo de negocio, crecimiento, innovación y estrategia de valor.</div>
-        <div class="card-check">✓</div>
-      </button>
-      <button class="card-option" role="radio" aria-checked="false" data-id="finanzas" onclick="selectSubLinea('finanzas', this)">
-        <span class="card-icon" aria-hidden="true">
-          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-        </span>
-        <div class="card-name">Gerencia Financiera</div>
-        <div class="card-desc">Enfoque en costos, presupuestos, flujo de caja y rentabilidad.</div>
-        <div class="card-check">✓</div>
-      </button>
-    </div>
+      </div>
     <div class="nav-row">
       <button class="btn btn-secondary" onclick="goStep(4)">Volver</button>
       <button class="btn btn-primary" id="btn-step5" disabled onclick="procesarResultados()">Generar Diagnóstico</button>
     </div>
   </div>
 
-  <!-- ESTADO DE CARGA INTERMEDIO -->
   <div class="section" id="loading-section">
     <div class="spinner"></div>
     <h3 id="loading-title">Analizando tus respuestas...</h3>
     <p id="loading-desc">Identificando tu reto principal y buscando herramientas ideales.</p>
   </div>
 
-  <!-- PASO 6: RESULTADO -->
   <div class="section" id="step6">
     <div id="result-container"></div>
     <div class="nav-row nav-row-center no-print" style="margin-top: 40px; gap: 16px;">
@@ -577,7 +554,7 @@ const LINEAS = [
   { id: 'gerencia',     name: 'Gerencia',             icon: '<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>', desc: 'Estrategia, finanzas e internacionalización.' },
   { id: 'eficiencia',   name: 'Eficiencia',           icon: '<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>', desc: 'Procesos, calidad, operaciones y logística.' },
   { id: 'talento',      name: 'Talento Humano',       icon: '<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>', desc: 'Equipo, roles y estructura organizacional.' },
-  { id: 'innovacion',   name: 'Innovación',           icon: '<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="9" y1="18" x2="15" y2="18"></line><line x1="10" y1="22" x2="14" y2="22"></line><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"></path></svg>', desc: 'Tecnología, nuevos productos y servicios.' },
+  { id: 'innovacion',   name: 'Innovación',           icon: '<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="9" y1="18" x2="15" y2="18"></line><line x1="10" y1="22" x2="14" y2="22"></line><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"></path></svg>', desc: 'Digitalización, automatización o nuevos productos.' },
 ];
 
 const PREGUNTAS = {
@@ -672,12 +649,12 @@ const PREGUNTAS = {
   ],
   innovacion: [
     {
-      id: 'IN1', texto: '¿Cuenta con procesos de innovación para crear/mejorar productos?',
+      id: 'IN1', texto: '¿Cuenta con procesos de innovación para crear/mejorar productos o digitalizar áreas?',
       opciones: [
         { texto: 'No, hacemos lo mismo desde el principio y no vemos necesidad.', pct: 0 },
-        { texto: 'Queremos innovar pero no sabemos cómo estructurar el proceso.', pct: 33 },
+        { texto: 'Queremos innovar o digitalizar pero no sabemos cómo estructurar el proceso.', pct: 33 },
         { texto: 'Innovamos cuando surge una idea, pero no es un hábito constante.', pct: 66 },
-        { texto: 'Sí, la innovación es parte de nuestra cultura y destinamos recursos a ello.', pct: 100 },
+        { texto: 'Sí, la mejora continua y el uso de tecnología es parte de nuestra cultura.', pct: 100 },
       ]
     }
   ]
@@ -688,14 +665,14 @@ const PLAN = {
   descubrimiento: {
     gerencia: [{ tema: 'Modelo de negocio', herr: 'Business Model Canvas' }],
     comercial: [{ tema: 'Propuesta de valor', herr: 'Lienzo de propuesta de valor' }],
-    innovacion: [{ tema: 'Experimentos de validación', herr: 'Tarjeta de pruebas' }],
+    innovacion: [{ tema: 'Validación de necesidades', herr: 'Mapeo de dolor de cliente' }],
     talento: [{ tema: 'Mapeo de actores clave', herr: 'Matriz de Roles inicial' }],
     eficiencia: [{ tema: 'Procesos básicos', herr: 'Diagrama de flujo simple' }]
   },
   nacimiento: {
     gerencia: [{ tema: 'Punto de equilibrio', herr: 'Plan Financiero Básico' }],
     comercial: [{ tema: 'Construcción de marca', herr: 'Manual de Branding' }],
-    innovacion: [{ tema: 'Vigilancia de competencia', herr: 'Benchmarking' }],
+    innovacion: [{ tema: 'Adopción de herramientas', herr: 'Auditoría de software gratuito' }],
     talento: [{ tema: 'Socios y equipo', herr: 'Acuerdo de fundadores' }],
     eficiencia: [{ tema: 'Documentación inicial', herr: 'Manual de operaciones' }]
   },
@@ -711,7 +688,7 @@ const PLAN = {
     talento: [{ tema: 'Contratación a escala', herr: 'Políticas de RRHH' }],
     eficiencia: [{ tema: 'Sistematización', herr: 'Evaluación de ERP' }],
     gerencia: [{ tema: 'Proyectos de inversión', herr: 'Flujo de caja proyectado' }],
-    innovacion: [{ tema: 'Vigilancia tecnológica', herr: 'Roadmap de Producto' }]
+    innovacion: [{ tema: 'Integración tecnológica', herr: 'Roadmap de Producto / IT' }]
   },
   madurez: {
     comercial: [{ tema: 'Nuevos mercados', herr: 'Plan de Internacionalización' }],
@@ -732,123 +709,74 @@ const RETOS = {
   E1: { reto: 'Alta dependencia del talento (procesos no documentados)', herr: 'Mapeo de Procesos (Flujogramas)', insight: 'Si te enfermas, ¿tu empresa sigue operando igual? Documentar el "paso a paso" es el secreto para poder delegar y crecer.' },
   E2: { reto: 'Operaciones manuales o informales', herr: 'Checklist de Herramientas Digitales', insight: 'El tiempo de tu equipo vale oro. Digitalizar la gestión operativa reduce errores, evita re-procesos y mejora el tiempo de respuesta.' },
   T1: { reto: 'Estructura y roles confusos', herr: 'Organigrama y Manual de Funciones', insight: 'Cuando "todos hacen de todo", nadie es responsable de los resultados. Clarificar roles mejora el clima laboral y la productividad.' },
-  IN1: { reto: 'Estancamiento en la oferta de valor', herr: 'Ciclo de Experimentación Ágil', insight: 'El mercado cambia rápido. Dedicar un pequeño porcentaje de tiempo a probar nuevas ideas te protegerá de volverte irrelevante.' }
+  IN1: { reto: 'Estancamiento en la oferta de valor', herr: 'Ciclo de Experimentación Ágil', insight: 'El mercado cambia rápido. Dedicar un porcentaje de tiempo a probar nuevas tecnologías te protegerá de volverte irrelevante.' }
 };
 
-// Retos Específicos para Gerencia -> Profundidad en Estrategia
+// ==============================================
+// MATRICES ESPECÍFICAS DE PROFUNDIZACIÓN
+// ==============================================
+
+// GERENCIA ESTRATEGIA
 const RETOS_GERENCIA_ESTRATEGIA = {
-  descubrimiento: {
-    reto: 'Conceptualización clara del valor',
-    herr: 'Lienzo de Estrés del Valor',
-    insight: 'El emprendedor carece de una conceptualización clara de su valor. Sabe qué hace, pero no sabe qué valor real aporta, lo que le impide explicar y vender su oferta de forma persuasiva.'
-  },
-  nacimiento: {
-    reto: 'Definición de la estrategia de Fuente de Ingreso',
-    herr: 'Lienzo del Enfrentamiento de las fuentes de ingreso con la lógica de Negocio',
-    insight: 'Esto implica establecer el modelo de ingresos correcto que refleje el valor real, sea sostenible, rentable y esté alineado con el mercado y la estructura de costos.'
-  },
-  despegue: {
-    reto: 'Validación comercial en el mercado real',
-    herr: 'Lienzo de construcción de experimentos comerciales de Lean StartUp',
-    insight: 'Debes poner a prueba tu propuesta de valor y modelo de ingresos en el mercado real. Implica ejecutar validación comercial para verificar la aceptación y viabilidad.'
-  },
-  crecimiento: {
-    reto: 'Validación rigurosa de Product Market Fit',
-    herr: 'Cuadro de parámetros de Product Market Fit',
-    insight: 'Consiste en validar rigurosamente que el producto satisface una necesidad profunda y recurrente en un mercado grande. Implica: validación en demanda masiva, modelo replicable y sostenibilidad.'
-  },
-  madurez: {
-    reto: 'Identificación de oportunidades significativas',
-    herr: 'Diagrama de Venn para encontrar Sweet Spot basado en Trend Fundamental',
-    insight: 'Implica que la empresa, ya establecida y con un Product Market Fit confirmado, debe buscar nuevas vías para crecer, expandirse o diversificar de manera estratégica y rentable.'
-  }
+  descubrimiento: { reto: 'Conceptualización clara del valor', herr: 'Lienzo de Estrés del Valor', insight: 'Careces de una conceptualización clara de tu valor. Sabes qué haces, pero no qué valor real aportas, lo que te impide vender tu oferta de forma persuasiva.' },
+  nacimiento: { reto: 'Definición de la estrategia de Fuente de Ingreso', herr: 'Lienzo de Fuentes de Ingreso vs Lógica de Negocio', insight: 'Implica establecer el modelo de ingresos correcto que refleje el valor real, sea sostenible y esté alineado con la estructura de costos.' },
+  despegue: { reto: 'Validación comercial en el mercado real', herr: 'Lienzo de experimentos comerciales de Lean StartUp', insight: 'Debes poner a prueba tu propuesta de valor y modelo de ingresos ejecutando validación comercial para verificar aceptación y viabilidad.' },
+  crecimiento: { reto: 'Validación rigurosa de Product Market Fit', herr: 'Cuadro de parámetros de Product Market Fit', insight: 'Valida rigurosamente que el producto satisface una necesidad profunda en un mercado grande (demanda masiva, modelo replicable, sostenibilidad).' },
+  madurez: { reto: 'Identificación de oportunidades significativas', herr: 'Diagrama de Venn para Sweet Spot', insight: 'La empresa establecida debe buscar nuevas vías para crecer, expandirse o diversificar de manera estratégica y rentable.' }
 };
 
-// Retos Específicos para Gerencia -> Profundidad en Finanzas
+// GERENCIA FINANZAS
 const RETOS_GERENCIA_FINANZAS = {
-  descubrimiento: {
-    reto: 'Confusión entre idea, venta y ganancia',
-    herr: 'Tabla simple de estructura de costos y definición de precio.',
-    insight: 'El emprendimiento aún no tiene claridad sobre cómo genera ingresos, cuáles son sus costos básicos ni si el precio propuesto tiene sentido frente al mercado.'
-  },
-  nacimiento: {
-    reto: 'Mezcla de finanzas personales y del negocio',
-    herr: 'Tabla simple de estructura de costos y definición de precio.',
-    insight: 'El emprendimiento ya empezó a vender o probar su oferta, pero no separa costos del negocio y gastos personales, por lo que no sabe si realmente está ganando.'
-  },
-  despegue: {
-    reto: 'Falta de visibilidad sobre rentabilidad real',
-    herr: 'Tabla estructurada de costos fijos y variables / Plantilla de ajuste de precios.',
-    insight: 'El negocio tiene movimiento comercial, pero no identifica con precisión qué productos o servicios son realmente rentables. Puede vender más y aun así ganar poco.'
-  },
-  crecimiento: {
-    reto: 'Crecimiento con huecos en rentabilidad',
-    herr: 'Tabla estructurada de costos fijos y variables / Plantilla de ajuste de precios.',
-    insight: 'El aumento en ventas viene acompañado de mayores costos y gastos, pero el emprendimiento no tiene visibilidad suficiente sobre "huecos" en la rentabilidad, sobrecostos o decisiones de precio mal ajustadas.'
-  },
-  madurez: {
-    reto: 'Estancamiento en utilidad y eficiencia financiera',
-    herr: 'Tabla estructurada de costos fijos y variables / Plantilla de ajuste de precios.',
-    insight: 'El negocio ya opera de forma más estable, pero enfrenta estancamiento en utilidad, baja eficiencia financiera o poca claridad sobre qué decisiones permitirían mejorar sostenibilidad y crecimiento.'
-  }
+  descubrimiento: { reto: 'Confusión entre idea, venta y ganancia', herr: 'Tabla simple de estructura de costos y precio', insight: 'Aún no hay claridad sobre cómo generar ingresos ni los costos básicos para que el precio propuesto tenga sentido frente al mercado.' },
+  nacimiento: { reto: 'Mezcla de finanzas personales y del negocio', herr: 'Tabla simple de estructura de costos y precio', insight: 'El negocio empezó a vender, pero al no separar costos del negocio y gastos personales, no se sabe si realmente está ganando.' },
+  despegue: { reto: 'Falta de visibilidad sobre rentabilidad real', herr: 'Tabla estructurada de costos / Plantilla de precios', insight: 'Hay movimiento comercial, pero no se identifica con precisión qué es realmente rentable. Se puede vender más y aun así ganar poco.' },
+  crecimiento: { reto: 'Crecimiento con huecos en rentabilidad', herr: 'Tabla estructurada de costos / Plantilla de precios', insight: 'El aumento en ventas trae mayores costos. Faltan controles sobre "huecos" en la rentabilidad o decisiones de precio mal ajustadas.' },
+  madurez: { reto: 'Estancamiento en utilidad y eficiencia financiera', herr: 'Tabla estructurada de costos / Plantilla de precios', insight: 'El negocio opera estable pero enfrenta estancamiento en utilidad o poca claridad sobre decisiones para mejorar sostenibilidad.' }
 };
 
-// Retos Específicos para Talento Humano
+// TALENTO HUMANO
 const RETOS_TALENTO_HUMANO = {
-  descubrimiento: {
-    reto: 'Falta de claridad en habilidades y recursos mínimos',
-    herr: 'Matriz de evaluación de capacidades personales vs exigencias del negocio',
-    insight: 'El emprendedor está diseñando su negocio sin tener claridad sobre si cuenta con las habilidades, competencias y recursos mínimos necesarios para ejecutarlo.'
-  },
-  nacimiento: {
-    reto: 'Sobrecarga de roles y falta de priorización',
-    herr: 'Sistema de priorización y trabajo inteligente',
-    insight: 'Asume múltiples roles simultáneamente sin criterio claro para priorizar tiempo y esfuerzo, lo que deriva en saturación, baja efectividad y estancamiento.'
-  },
-  despegue: {
-    reto: 'Desorganización y dependencia del líder',
-    herr: 'Diagrama de roles, responsabilidades y seguimiento',
-    insight: 'El equipo enfrenta desorganización por falta de responsabilidades y seguimiento. Se necesita estructurar roles para que no se superpongan ni se diluyan.'
-  },
-  crecimiento: {
-    reto: 'Cuello de botella en el liderazgo (dificultad para delegar)',
-    herr: 'Sistema de priorización y delegación de actividades',
-    insight: 'El negocio crece, pero el líder es un cuello de botella. Le cuesta delegar y el equipo depende de él; si falta, se pierde control sobre lo que pasa en el negocio.'
-  },
-  madurez: {
-    reto: 'Estancamiento en el desarrollo de nuevos líderes',
-    herr: 'Matriz de análisis de desempeño y hoja de ruta de aprendizaje y desarrollo del equipo',
-    insight: 'Alta dependencia de pocos líderes y ausencia de mecanismos estructurados para impulsar nuevas iniciativas, lo que limita su capacidad de evolución y crecimiento sostenible.'
-  }
+  descubrimiento: { reto: 'Falta de claridad en habilidades y recursos mínimos', herr: 'Matriz de evaluación de capacidades vs exigencias', insight: 'Se diseña el negocio sin tener claridad sobre si se cuenta con las habilidades, competencias y recursos mínimos necesarios.' },
+  nacimiento: { reto: 'Sobrecarga de roles y falta de priorización', herr: 'Sistema de priorización y trabajo inteligente', insight: 'Asumes múltiples roles sin criterio claro para priorizar tiempo, derivando en saturación, baja efectividad y estancamiento.' },
+  despegue: { reto: 'Desorganización y dependencia del líder', herr: 'Diagrama de roles, responsabilidades y seguimiento', insight: 'El equipo enfrenta desorganización por falta de responsabilidades claras. Se necesita estructurar roles para que no se superpongan.' },
+  crecimiento: { reto: 'Cuello de botella en el liderazgo (dificultad para delegar)', herr: 'Sistema de priorización y delegación de actividades', insight: 'El negocio crece, pero el líder es un cuello de botella. Le cuesta delegar y si falta, se pierde el control del negocio.' },
+  madurez: { reto: 'Estancamiento en el desarrollo de nuevos líderes', herr: 'Matriz de desempeño y ruta de aprendizaje del equipo', insight: 'Alta dependencia de pocos líderes y ausencia de mecanismos para impulsar nuevas iniciativas, limitando el crecimiento sostenible.' }
 };
 
-// Retos Específicos para Eficiencia
+// EFICIENCIA
 const RETOS_EFICIENCIA = {
-  descubrimiento: {
-    reto: 'Operación intuitiva y sin procesos claros',
-    herr: 'Mapeo simple del flujo operativo / Lienzo de Visualización del paso a paso',
-    insight: 'El emprendimiento todavía no tiene un proceso claro de operación; las actividades se realizan de manera intuitiva, sin orden definido, lo que genera pérdidas de tiempo, reprocesos o dificultades para entregar valor al cliente.'
-  },
-  nacimiento: {
-    reto: 'Dependencia del emprendedor e improvisación operativa',
-    herr: 'Diagrama visual del proceso señalizando el cuello de botella (Teoría de Restricciones)',
-    insight: 'El negocio ya realiza actividades operativas básicas, pero depende demasiado del emprendedor, presenta improvisación y no distingue con claridad cuál parte del proceso genera más retrasos o errores.'
-  },
-  despegue: {
-    reto: 'Tensión operativa y aparición de cuellos de botella',
-    herr: 'Matriz de análisis rápido de causas / Plan de acción de mejora puntual',
-    insight: 'El aumento de la demanda empieza a tensar la operación; aparecen cuellos de botella en producción, atención, entrega o abastecimiento, afectando tiempos y calidad.'
-  },
-  crecimiento: {
-    reto: 'Sobrecarga y descoordinación por aumento de volumen',
-    herr: 'Mapeo con tiempos aproximados / Simulador del proceso subordinado a la restricción',
-    insight: 'El negocio tiene un mayor volumen de trabajo, pero la operación no siempre responde con la misma capacidad. Se presentan sobrecargas, tiempos muertos, errores recurrentes y descoordinación entre actividades.'
-  },
-  madurez: {
-    reto: 'Límites de capacidad e ineficiencias estructurales',
-    herr: 'Plan de mejora operativa para reducir esperas, duplicidades o saturación',
-    insight: 'La operación está más consolidada, pero enfrenta límites de capacidad, ineficiencias estructurales o restricciones que frenan escalabilidad, sostenibilidad o calidad del servicio.'
-  }
+  descubrimiento: { reto: 'Operación intuitiva y sin procesos claros', herr: 'Mapeo simple del flujo / Lienzo del paso a paso', insight: 'Aún no hay un proceso claro; las actividades se realizan de forma intuitiva, generando pérdidas de tiempo y reprocesos.' },
+  nacimiento: { reto: 'Dependencia e improvisación operativa', herr: 'Diagrama visual señalizando cuellos de botella', insight: 'Se realizan actividades básicas pero con improvisación, sin distinguir qué parte del proceso genera más retrasos o errores.' },
+  despegue: { reto: 'Tensión operativa y aparición de cuellos de botella', herr: 'Matriz de causas / Plan de acción de mejora', insight: 'El aumento de demanda tensa la operación. Aparecen cuellos de botella en producción, atención o entrega, afectando calidad.' },
+  crecimiento: { reto: 'Sobrecarga y descoordinación por volumen', herr: 'Simulador del proceso subordinado a la restricción', insight: 'Mayor volumen de trabajo pero la operación no responde. Hay sobrecargas, tiempos muertos, errores y descoordinación.' },
+  madurez: { reto: 'Límites de capacidad e ineficiencias estructurales', herr: 'Plan de mejora operativa para reducir esperas', insight: 'La operación está consolidada pero enfrenta límites de capacidad e ineficiencias que frenan la escalabilidad o la calidad.' }
+};
+
+// INNOVACIÓN: TRANSFORMACIÓN DIGITAL
+const RETOS_INNOVACION_DIGITAL = {
+  descubrimiento: { reto: 'Identificación de procesos manuales críticos', herr: 'Mapeo de procesos analógicos', insight: 'Aún no hay procesos formales, pero es clave identificar qué actividades manuales consumirán más tiempo para digitalizarlas desde el día cero.' },
+  nacimiento: { reto: 'Digitalización del control de clientes e inventario', herr: 'Implementación de CRM básico y control en la nube', insight: 'Se pierde información valiosa en papel o cuadernos. Digitalizar la gestión de clientes mejora inmediatamente el control y la retención.' },
+  despegue: { reto: 'Integración de canales digitales de atención', herr: 'Auditoría de flujos y digitalización de canales', insight: 'La demanda crece y responder manualmente en redes no da abasto. Se requiere unificar y digitalizar la interacción con el cliente.' },
+  crecimiento: { reto: 'Digitalización integral de la cadena de valor', herr: 'Evaluación para ERP o sistemas integrados', insight: 'Diferentes departamentos usan herramientas desconectadas. Es vital unificar la información para tomar decisiones en tiempo real.' },
+  madurez: { reto: 'Transformación del modelo hacia lo digital', herr: 'Estrategia de Transformación Digital Corporativa', insight: 'La empresa es sólida, pero el mercado exige modelos nativos digitales. Hay que transformar no solo el proceso, sino el núcleo del negocio.' }
+};
+
+// INNOVACIÓN: AUTOMATIZACIÓN
+const RETOS_INNOVACION_AUTOMATIZACION = {
+  descubrimiento: { reto: 'Automatización de respuestas y captación', herr: 'Configuración de respuestas automáticas (WhatsApp/RRSS)', insight: 'Como fundador haces todo. Automatizar las respuestas iniciales te libera tiempo vital para enfocarte en el desarrollo del producto.' },
+  nacimiento: { reto: 'Conexión de herramientas básicas', herr: 'Hoja de ruta de automatización (Zapier/Make)', insight: 'Tienes tareas repetitivas de copiar y pegar datos. Usar herramientas No-Code eliminará este trabajo manual tedioso.' },
+  despegue: { reto: 'Automatización del marketing y seguimiento', herr: 'Flujos de automatización de email y embudos', insight: 'No puedes hacer seguimiento manual a cada prospecto. La automatización debe nutrir a los clientes potenciales mientras tú operas.' },
+  crecimiento: { reto: 'Automatización administrativa con IA', herr: 'Implementación de flujos de trabajo con Inteligencia Artificial', insight: 'Tareas como facturación, soporte o análisis consumen muchos recursos. La IA puede acelerar estos procesos operativos de forma radical.' },
+  madurez: { reto: 'Hiperautomatización empresarial', herr: 'Auditoría RPA (Robotic Process Automation)', insight: 'Operaciones complejas y alto volumen de datos. La automatización debe ser transversal y predictiva para maximizar drásticamente el ROI.' }
+};
+
+// INNOVACIÓN: NUEVOS PRODUCTOS Y SERVICIOS
+const RETOS_INNOVACION_PRODUCTOS = {
+  descubrimiento: { reto: 'Definición del problema y concepto', herr: 'Lienzo de Propuesta de Valor y Customer Journey', insight: 'Necesitas centrarte profundamente en entender el problema del cliente antes de invertir tiempo y dinero en construir la solución.' },
+  nacimiento: { reto: 'Creación del Producto Mínimo Viable (MVP)', herr: 'Hoja de ruta de prototipado rápido', insight: 'Tienes la idea, pero debes lanzarla rápido. Construir un prototipo simple te permite fallar barato, aprender y corregir ágilmente.' },
+  despegue: { reto: 'Validación comercial y ajuste del producto', herr: 'Ruta de validación comercial y métricas pirata', insight: 'El nuevo producto está en el mercado, pero debes validar si la gente está realmente dispuesta a pagar por él y recomendarlo.' },
+  crecimiento: { reto: 'Diversificación del portafolio actual', herr: 'Matriz de Ansoff (Desarrollo de nuevos productos)', insight: 'Tu oferta base ya es exitosa. Ahora debes explorar características adicionales o productos complementarios para aumentar el ticket promedio.' },
+  madurez: { reto: 'Creación de un motor continuo de innovación', herr: 'Implementación de un laboratorio de innovación / Corporate Venturing', insight: 'La empresa necesita disrupción constante para no quedarse atrás. Debes sistematizar la creación y validación continua de nuevas ofertas.' }
 };
 
 
@@ -917,6 +845,59 @@ function renderPreguntas() {
     </div>
   `).join('');
   checkStep4Ready();
+}
+
+function renderSubLineas() {
+  const title = document.getElementById('step5-title');
+  const desc = document.getElementById('step5-desc');
+  const grid = document.getElementById('enfoque-grid');
+  const btn = document.getElementById('btn-step5');
+
+  // Limpiar selección previa
+  state.subLinea = null;
+  btn.disabled = true;
+
+  if (state.linea === 'gerencia') {
+    title.textContent = 'Profundización en Gerencia';
+    desc.textContent = 'Has seleccionado Gerencia. Por favor indica en cuál de estas dos áreas específicas necesitas mayor atención.';
+    grid.innerHTML = `
+      <button class="card-option" role="radio" aria-checked="false" data-id="estrategia" onclick="selectSubLinea('estrategia', this)">
+        <span class="card-icon" aria-hidden="true"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg></span>
+        <div class="card-name">Gerencia Estratégica</div>
+        <div class="card-desc">Enfoque en modelo de negocio, crecimiento, innovación y estrategia de valor.</div>
+        <div class="card-check">✓</div>
+      </button>
+      <button class="card-option" role="radio" aria-checked="false" data-id="finanzas" onclick="selectSubLinea('finanzas', this)">
+        <span class="card-icon" aria-hidden="true"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg></span>
+        <div class="card-name">Gerencia Financiera</div>
+        <div class="card-desc">Enfoque en costos, presupuestos, flujo de caja y rentabilidad.</div>
+        <div class="card-check">✓</div>
+      </button>
+    `;
+  } else if (state.linea === 'innovacion') {
+    title.textContent = 'Ruta de Innovación';
+    desc.textContent = 'Has seleccionado Innovación. Por favor indica en qué ruta te gustaría enfocarte para modernizar tu negocio.';
+    grid.innerHTML = `
+      <button class="card-option" role="radio" aria-checked="false" data-id="digital" onclick="selectSubLinea('digital', this)">
+        <span class="card-icon" aria-hidden="true"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg></span>
+        <div class="card-name">Transformación Digital</div>
+        <div class="card-desc">Análisis y digitalización de procesos para modernizar tu operación y habilidades.</div>
+        <div class="card-check">✓</div>
+      </button>
+      <button class="card-option" role="radio" aria-checked="false" data-id="automatizacion" onclick="selectSubLinea('automatizacion', this)">
+        <span class="card-icon" aria-hidden="true"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg></span>
+        <div class="card-name">Automatización</div>
+        <div class="card-desc">Uso de IA y herramientas para automatizar tareas y procesos repetitivos.</div>
+        <div class="card-check">✓</div>
+      </button>
+      <button class="card-option" role="radio" aria-checked="false" data-id="productos" onclick="selectSubLinea('productos', this)">
+        <span class="card-icon" aria-hidden="true"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg></span>
+        <div class="card-name">Nuevos Productos/Servicios</div>
+        <div class="card-desc">Concepto, prototipado y hoja de ruta de validación comercial.</div>
+        <div class="card-check">✓</div>
+      </button>
+    `;
+  }
 }
 
 // ==========================================
@@ -1005,7 +986,9 @@ function checkStep4Ready() {
   
   if (respondidas >= preguntas.length && preguntas.length > 0) {
     btn.disabled = false;
-    btn.innerHTML = state.linea === 'gerencia' ? 'Siguiente Paso' : 'Generar Diagnóstico';
+    // Si la línea seleccionada requiere profundizar, mostramos texto distinto
+    const requiresSubLinea = state.linea === 'gerencia' || state.linea === 'innovacion';
+    btn.innerHTML = requiresSubLinea ? 'Siguiente Paso' : 'Generar Diagnóstico';
   } else {
     btn.disabled = true;
     btn.innerHTML = 'Responde todas para continuar';
@@ -1013,7 +996,9 @@ function checkStep4Ready() {
 }
 
 function iniciarCalculo() {
-  if (state.linea === 'gerencia') {
+  const requiresSubLinea = state.linea === 'gerencia' || state.linea === 'innovacion';
+  if (requiresSubLinea) {
+    renderSubLineas();
     goStep(5);
   } else {
     procesarResultados();
@@ -1039,11 +1024,11 @@ function goStep(n) {
   const targetSection = document.getElementById('step' + n);
   if(targetSection) targetSection.classList.add('visible');
 
-  const isGerencia = state.linea === 'gerencia';
-  const totalSteps = isGerencia ? 6 : 5;
-  const currentVisualStep = (n === 6 && !isGerencia) ? 5 : n;
+  const requiresSubLinea = state.linea === 'gerencia' || state.linea === 'innovacion';
+  const totalSteps = requiresSubLinea ? 6 : 5;
+  const currentVisualStep = (n === 6 && !requiresSubLinea) ? 5 : n;
 
-  document.getElementById('ps6').style.display = isGerencia ? 'block' : 'none';
+  document.getElementById('ps6').style.display = requiresSubLinea ? 'block' : 'none';
 
   const progressContainer = document.getElementById('progress-container');
   progressContainer.setAttribute('aria-valuemax', totalSteps);
@@ -1062,7 +1047,7 @@ function goStep(n) {
   else if (n === 2) label = `Paso 2 de ${totalSteps}: Etapa Empresarial`;
   else if (n === 3) label = `Paso 3 de ${totalSteps}: Área a Diagnosticar`;
   else if (n === 4) label = `Paso 4 de ${totalSteps}: Profundización`;
-  else if (n === 5 && isGerencia) label = `Paso 5 de ${totalSteps}: Enfoque Gerencial`;
+  else if (n === 5 && requiresSubLinea) label = `Paso 5 de ${totalSteps}: Foco de Acción`;
   else label = `Paso ${totalSteps} de ${totalSteps}: Resultados del Diagnóstico`;
 
   document.getElementById('progress-label').textContent = label;
@@ -1095,7 +1080,7 @@ function generarDiagnosticoFinal() {
     }
   });
 
-  const score = Math.round(totalPct / preguntas.length) || 0; // Prevención de NaN
+  const score = Math.round(totalPct / preguntas.length) || 0; 
 
   let nivelObj = { nivel: 'Nivel no definido', desc: '' };
   if (score <= 33)  nivelObj = { nivel: 'Inicial', desc: 'Hay mucho potencial de estructuración. Enfoquémonos en las bases.' };
@@ -1115,49 +1100,46 @@ function generarDiagnosticoFinal() {
 
   // --- LÓGICA DE RETOS ESPECÍFICOS ---
   if (state.linea === 'gerencia' && state.subLinea === 'estrategia') {
-    const customReto = RETOS_GERENCIA_ESTRATEGIA[state.etapa];
-    if (customReto) {
-      retoFinal = customReto.reto;
-      insightFinal = customReto.insight;
-      herrFinal = customReto.herr;
-    }
+    const custom = RETOS_GERENCIA_ESTRATEGIA[state.etapa];
+    if (custom) { retoFinal = custom.reto; insightFinal = custom.insight; herrFinal = custom.herr; }
   } else if (state.linea === 'gerencia' && state.subLinea === 'finanzas') {
-    const customReto = RETOS_GERENCIA_FINANZAS[state.etapa];
-    if (customReto) {
-      retoFinal = customReto.reto;
-      insightFinal = customReto.insight;
-      herrFinal = customReto.herr;
-    }
+    const custom = RETOS_GERENCIA_FINANZAS[state.etapa];
+    if (custom) { retoFinal = custom.reto; insightFinal = custom.insight; herrFinal = custom.herr; }
+  } else if (state.linea === 'innovacion' && state.subLinea === 'digital') {
+    const custom = RETOS_INNOVACION_DIGITAL[state.etapa];
+    if (custom) { retoFinal = custom.reto; insightFinal = custom.insight; herrFinal = custom.herr; }
+  } else if (state.linea === 'innovacion' && state.subLinea === 'automatizacion') {
+    const custom = RETOS_INNOVACION_AUTOMATIZACION[state.etapa];
+    if (custom) { retoFinal = custom.reto; insightFinal = custom.insight; herrFinal = custom.herr; }
+  } else if (state.linea === 'innovacion' && state.subLinea === 'productos') {
+    const custom = RETOS_INNOVACION_PRODUCTOS[state.etapa];
+    if (custom) { retoFinal = custom.reto; insightFinal = custom.insight; herrFinal = custom.herr; }
   } else if (state.linea === 'talento') {
-    const customReto = RETOS_TALENTO_HUMANO[state.etapa];
-    if (customReto) {
-      retoFinal = customReto.reto;
-      insightFinal = customReto.insight;
-      herrFinal = customReto.herr;
-    }
+    const custom = RETOS_TALENTO_HUMANO[state.etapa];
+    if (custom) { retoFinal = custom.reto; insightFinal = custom.insight; herrFinal = custom.herr; }
   } else if (state.linea === 'eficiencia') {
-    const customReto = RETOS_EFICIENCIA[state.etapa];
-    if (customReto) {
-      retoFinal = customReto.reto;
-      insightFinal = customReto.insight;
-      herrFinal = customReto.herr;
-    }
+    const custom = RETOS_EFICIENCIA[state.etapa];
+    if (custom) { retoFinal = custom.reto; insightFinal = custom.insight; herrFinal = custom.herr; }
   } else {
-    retoFinal = defaultRetoData.reto;
-    insightFinal = defaultRetoData.insight;
-    herrFinal = defaultRetoData.herr;
+    retoFinal = defaultRetoData.reto; insightFinal = defaultRetoData.insight; herrFinal = defaultRetoData.herr;
   }
 
   // Textos y nombres dinámicos
   const nombreMentor = state.datos.mentor || "tu mentor";
-  const tituloLinea = (state.linea === 'gerencia' && state.subLinea) 
-    ? (state.subLinea === 'estrategia' ? 'Gerencia Estratégica' : 'Gerencia Financiera')
-    : lineaObj.name;
+  
+  let tituloLinea = lineaObj.name;
+  if (state.linea === 'gerencia') {
+    tituloLinea = state.subLinea === 'estrategia' ? 'Gerencia Estratégica' : 'Gerencia Financiera';
+  } else if (state.linea === 'innovacion') {
+    if (state.subLinea === 'digital') tituloLinea = 'Transformación Digital';
+    if (state.subLinea === 'automatizacion') tituloLinea = 'Automatización';
+    if (state.subLinea === 'productos') tituloLinea = 'Nuevos Productos y Servicios';
+  }
 
   // Generar resumen del estado de la unidad productiva
-  const resumenTexto = `La unidad productiva <strong>${state.datos.empresa}</strong>, representada por <strong>${state.datos.nombre}</strong> y clasificada en la etapa de <strong>${etapaObj.name}</strong>, ha completado exitosamente su diagnóstico de madurez en el área de <strong>${tituloLinea}</strong>. El análisis refleja un índice de madurez del <strong>${score}%</strong>, ubicando a la empresa en un nivel <strong>${nivelObj.nivel}</strong>. Se ha identificado que su principal reto estratégico actual es la <strong>${retoFinal.toLowerCase()}</strong>. Para superar este desafío, se recomienda implementar prioritariamente la herramienta <strong>${herrFinal}</strong>. Las siguientes sesiones de mentoría con <strong>${nombreMentor}</strong> estarán enfocadas en ejecutar estos ajustes y propulsar el crecimiento sostenible del negocio.`;
+  const resumenTexto = `La unidad productiva <strong>${state.datos.empresa}</strong>, representada por <strong>${state.datos.nombre}</strong> y clasificada en la etapa de <strong>${etapaObj.name}</strong>, ha completado exitosamente su diagnóstico de madurez en el área de <strong>${tituloLinea}</strong>. El análisis refleja un índice de madurez del <strong>${score}%</strong>, ubicando a la empresa en un nivel <strong>${nivelObj.nivel}</strong>. Se ha identificado que su principal reto actual es la <strong>${retoFinal.toLowerCase()}</strong>. Para superar este desafío, se recomienda implementar prioritariamente la herramienta <strong>${herrFinal}</strong>. Las siguientes sesiones de mentoría con <strong>${nombreMentor}</strong> estarán enfocadas en ejecutar estos ajustes y propulsar el crecimiento de la empresa.`;
 
-  // Guardar payload para el correo (Mantenemos HTML en el resumen para negritas)
+  // Guardar payload para el correo
   state.payloadFinal = {
     nombre: state.datos.nombre,
     correo: state.datos.correo,
@@ -1241,7 +1223,6 @@ function generarDiagnosticoFinal() {
   document.getElementById('loading-section').classList.remove('visible');
   goStep(6);
   
-  // Pequeño retardo (requestAnimationFrame + timeout) para asegurar que el DOM se haya renderizado antes de animar
   requestAnimationFrame(() => {
     setTimeout(() => {
       const bar = document.getElementById('scoreBar');
@@ -1259,12 +1240,11 @@ function enviarCorreo() {
   const originalText = btn.innerHTML;
   btn.innerHTML = 'Enviando... ⏳';
 
-  // URL conectada y activa de Google Apps Script
-  const GAS_URL = "https://script.google.com/macros/s/AKfycbzcI8HKwlew6ixmF2xIlt6Nm12w8Ab2OlfQXB-RIg2n4jdqV7SZT4eFYm7t1oVuvbDW/exec"; 
+  const GAS_URL = "https://script.google.com/macros/s/AKfycbzh6XWFI7Cjp048Y_UdUTqWTa7gH-Q2g4vCrqjQtY2MfFDmAicgtV42dx-p53Ny2JdJvA/exec"; 
 
   fetch(GAS_URL, {
     method: 'POST',
-    mode: 'no-cors', // Esencial para evitar el bloqueo de Google
+    mode: 'no-cors', 
     headers: {
       'Content-Type': 'text/plain;charset=utf-8',
     },
@@ -1289,17 +1269,15 @@ function enviarCorreo() {
 function reiniciar() {
   state = { datos: {}, etapa: null, linea: null, subLinea: null, respuestas: {}, payloadFinal: null };
   
-  // Limpiar campos del formulario
   document.getElementById('inp-nombre').value = '';
   document.getElementById('inp-correo').value = '';
   document.getElementById('inp-empresa').value = '';
   document.getElementById('sel-mentor').value = '';
   document.querySelectorAll('input[name="tipo_persona"]').forEach(el => el.checked = false);
   
-  document.querySelectorAll('#enfoque-grid .card-option').forEach(c => {
-    c.classList.remove('selected');
-    c.setAttribute('aria-checked', 'false');
-  });
+  // Limpiar selecciones dinámicas
+  const grid = document.getElementById('enfoque-grid');
+  if (grid) grid.innerHTML = '';
   
   const btnEnvio = document.getElementById('btn-enviar-correo');
   if(btnEnvio) {
@@ -1315,7 +1293,6 @@ function reiniciar() {
   goStep(1);
 }
 
-// Iniciar app
 document.addEventListener("DOMContentLoaded", initApp);
 </script>
 </body>
